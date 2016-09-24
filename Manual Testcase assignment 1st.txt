@@ -1,0 +1,40 @@
+write acceptance criteria test cases, test cases (in given, and and then shore format)
+and in regular format and BDD test cases
+
+integration test cases, regression test cases
+
+pick any one use case:
+
+1) gmail compose functionality
+
+2) transfer amount from one account to other account (dont worry about adding new account)
+
+3) shopping cart functionality from amazon.com
+
+4) adding dependent to existing health insurance
+
+5) remove service from mobile plan
+
+6) enrolling student into course
+
+7) checking if gmail is showing proper emails or not
+
+links:
+long format of test case templates:
+http://www.softwaretestinghelp.com/test-case-template-examples/
+
+Short format of Test Cases:
+
+
+Acceptance Criteria test case formats:
+
+BDD sample formats:
+
+Defects:
+write defects (3-4) for below functionality
+
+1) facebook and gmail integration is not working
+2) users not able to perform transfer money through chase.com
+3) gmail registration (password is visible, emailformat is not working properly)
+
+how to write a defect:
