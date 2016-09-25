@@ -1,0 +1,239 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package final1;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author maheedhar
+ */
+public class Final1 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner scan1= new Scanner (System.in);
+        
+        int  mismatch, match, gap;
+        int n,m;
+        
+        
+        String s1,s2;
+        
+        System.out.println("Please enter the gap value: ");
+        gap = scan1.nextInt();
+        
+        System.out.println("Please enter the Mismatch value: ");
+        mismatch= scan1.nextInt();
+        System.out.println("Please enter the Match value: ");
+        match= scan1.nextInt();
+       
+        System.out.println("Please enter the first  sequence: ");
+        s1= scan1.next();
+        System.out.println("Please enter the second  sequence: ");
+        s2= scan1.next();
+        
+        m = s1.length()+1;
+        n = s2.length()+1;
+        int Array2D[][] = new int [s1.length()+1][s2.length()+1];
+        
+//        for(int i=0; i<=s1.length(); i++)
+//            for(int j=0; j<=s2.length(); j++)
+//                Array2D[i][j]=0;
+//        
+//        for(int i=1; i<=s1.length(); i++)
+//            Array2D[i][0]= Array2D[i-1][0]+ deletion;
+//        
+//        for(int j=1; j<=s2.length(); j++)
+//            Array2D[0][j]= Array2D[0][j-1]+ insertion;
+        
+        for (int i=0; i<=s1.length(); i++)
+        {
+            for (int j=0; j<=s2.length(); j++)
+            {
+                if (i==0 && j==0)
+                {
+                    Array2D[i][j]=0;
+                }
+                else if (i==0)
+                {
+                    Array2D[i][j]=Array2D[i][j-1] + gap;
+                }
+                else if (j==0)
+                {
+                    Array2D[i][j]=Array2D[i-1][j] + gap;
+                }
+                else // fill all cells by zero (Optional)
+                { 
+                    Array2D[i][j]=0;
+                }
+            }
+        }
+        
+//        for(int i=1; i<=s1.length(); i++)
+//        {
+//            for(int j=1; j<=s2.length(); j++)
+//            {
+//                if(s1.charAt(i-1) == s2.charAt(j-1))
+//                {
+//                    Array2D[i][j]= Array2D[i-1][j-1] + match;
+//                }
+//                else if(s1.charAt(i-1) != s2.charAt(j-1))
+//                {
+//                    if( (Array2D[i-1][j-1]+ mismatch >= Array2D[i][j-1]+ insertion) && ((Array2D[i-1][j-1]+ mismatch) >= (Array2D[i-1][j]+ deletion)) )
+//                    {
+//                        Array2D[i][j]= Array2D[i-1][j-1] + mismatch; 
+//                    }
+//                    else if ( (Array2D[i][j-1]+ deletion) >  (Array2D[i-1][j]+ insertion) )
+//                    {
+//                        Array2D[i-1][j-1]= Array2D[i][j-1] + deletion;
+//                    }
+//                    else Array2D[i][j]= Array2D[i-1][j] + insertion;
+//                }
+//            }
+//        }
+        
+        for (int i=1; i<=s1.length(); i++ )
+        {
+            for (int j=1; j<=s2.length(); j++ )
+            {
+                if (s1.charAt(i-1) == s2.charAt(j-1))
+                {
+                    Array2D[i][j] = Array2D[i-1][j-1] + match;
+                }
+                else if (s1.charAt(i-1) != s2.charAt(j-1))
+                {
+                    if ((Array2D[i-1][j-1] >= Array2D[i-1][j]) && (Array2D[i-1][j-1] >= Array2D[i][j-1]))
+                    {
+                        Array2D[i][j] = Array2D[i-1][j-1] + mismatch;
+                    }
+                    else if ((Array2D[i-1][j] > Array2D[i-1][j-1]) && (Array2D[i-1][j] > Array2D[i][j-1]))
+                    {
+                        Array2D[i][j] = Array2D[i-1][j] + gap;
+                    }
+                    
+                }
+            }
+        }
+        
+        System.out.println("-------------------------------");
+        for(int i=0; i<s1.length()+1; i++)
+        {
+            for(int j=0; j<s2.length()+1; j++)
+                System.out.printf( "%5d",Array2D[i][j]);
+            System.out.println();
+        }
+
+        
+        //----------------------------------- Array2D is Built and Filled out --------------------------------
+        
+        int s1index= s1.length()-1;
+        int s2index= s2.length()-1;
+        char s1_arr[];
+        char s2_arr[];
+        int num_arr[];
+        int last=0;
+        
+        int i= s1.length();
+        int j= s2.length();
+        
+        if (s1.length() >= s2.length())
+        {
+                s1_arr = new char [s1.length()];
+                s2_arr = new char [s1.length()];
+                num_arr = new int [s1.length()];
+                last=s1.length()-1;
+        }
+        else
+        {
+                s1_arr = new char [s2.length()];
+                s2_arr = new char [s2.length()];
+                num_arr = new int [s2.length()];
+                last=s2.length()-1;
+        }
+        
+        while ((i != 0) && (j != 0))
+        {	
+            if (s1.charAt(s1index) == s2.charAt(s2index))
+            {
+                s1_arr[last]= s1.charAt(s1index);
+                s2_arr[last]= s2.charAt(s2index);
+                num_arr[last]= match;
+                last= last-1;
+                s1index = s1index-1;
+                s2index = s2index-1;
+                i=i-1;
+                j=j-1;
+            }
+            else 
+            {
+                if ((Array2D[i-1][j-1] > Array2D[i-1][j]) && (Array2D[i-1][j-1] > Array2D[i][j-1]))
+                {
+                    s1_arr[last]= s1.charAt(s1index);
+                    s2_arr[last]= s2.charAt(s2index);
+                    num_arr[last]= mismatch;
+                    last= last-1;
+                    s1index = s1index-1;
+                    s2index = s2index-1;
+                    i=i-1;
+                    j=j-1;
+                }
+                else if ( (Array2D[i][j-1] > Array2D[i-1][j])) //(Array2D[i][j-1] > Array2D[i-1][j-1]) &&
+                {
+                    s1_arr[last]= '-';
+                    s2_arr[last]= s2.charAt(s2index);
+                    num_arr[last]= gap;
+                    last= last-1;
+                    s2index = s2index-1;
+                    j=j-1;
+                }
+                else //if ((Array2D[i-1][j] > Array2D[i-1][j-1]) && (Array2D[i-1][j] > Array2D[i][j-1]))
+                {
+                    s1_arr[last]= s1.charAt(s1index);
+                    s2_arr[last]= '-';
+                    num_arr[last]= gap;
+                    last= last-1;
+                    s1index = s1index-1;
+                    i=i-1;
+                }
+            }
+        }
+        
+        
+        System.out.println("===============================");
+        for (int q=0; q<s1_arr.length; q++)
+        {
+                System.out.print("  "+s1_arr[q]);
+        }
+        System.out.println();
+        
+        for (int q=0; q<s1_arr.length; q++)
+        {
+                System.out.print("  "+s2_arr[q]);
+        }
+        System.out.println();
+        
+        for (int q=0; q<s1_arr.length; q++)
+        {
+                System.out.printf("%3d",num_arr[q]);
+        }
+        System.out.println();
+        
+        int score=0;
+        for (int q=0; q<s1_arr.length; q++)
+        {
+                score= score+ num_arr[q];
+        }
+        System.out.println("===================================");
+        System.out.println("The score is : "+ score);
+        System.out.println();
+        
+    }
+}
+
+
